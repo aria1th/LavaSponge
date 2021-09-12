@@ -32,8 +32,8 @@ public class LavaSpongeMain {
         playerBlockPos = mc.player.getBlockPos();
         HashSet<Long> hashSet = getNearbyFluidPos();
         if (!hashSet.isEmpty()) {
-            playerInventorySwitch(useItem);
-            hashSet.stream().forEach(a -> placeBlock(BlockPos.fromLong(a)));
+            if (playerInventorySwitch(useItem)) {
+            hashSet.stream().forEach(a -> placeBlock(BlockPos.fromLong(a)));}
         }
     }
     public static HashSet<Long> getNearbyFluidPos () {
