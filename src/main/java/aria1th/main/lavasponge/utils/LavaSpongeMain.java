@@ -35,11 +35,19 @@ public class LavaSpongeMain {
             if (playerInventorySwitch(useItem)) {
             hashSet.stream().forEach(a -> placeBlock(BlockPos.fromLong(a)));}
         }
+        getNearbySlimePos().stream().forEach(a -> breakBlock(BlockPos.fromLong(a)));
     }
     public static HashSet<Long> getNearbyFluidPos () {
         return BlockPos.streamOutwards(playerBlockPos, reachDistance, reachDistance, reachDistance).
                 filter(position -> playerBlockPos.getSquaredDistance(position)< reachDistance * reachDistance).
                 filter(position -> isLavaSourceBlock(position)).limit(maxInteraction).
+                map(position -> position.asLong()).
+                collect(Collectors.toCollection(HashSet::new));
+    }
+    public static HashSet<Long> getNearbySlimePos () {
+        return BlockPos.streamOutwards(playerBlockPos, reachDistance, reachDistance, reachDistance).
+                filter(position -> playerBlockPos.getSquaredDistance(position)< reachDistance * reachDistance).
+                filter(position -> isSlimeBlock(position)).limit(maxInteraction).
                 map(position -> position.asLong()).
                 collect(Collectors.toCollection(HashSet::new));
     }
@@ -53,11 +61,24 @@ public class LavaSpongeMain {
         }
         return false;
     }
+    private static boolean isSlimeBlock (BlockPos pos) {
+        BlockState blockState = world.getBlockState(pos);
+        if (blockState.isAir()) {
+            return false;
+        }
+        else if (blockState.isOf(Blocks.SLIME_BLOCK)) {
+            return true;
+        }
+        return false;
+    }
     private static void placeBlock(BlockPos pos){
         Vec3d hitVec = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
         Hand hand = Hand.MAIN_HAND;
         BlockHitResult hitResult = new BlockHitResult(hitVec, Direction.DOWN, pos, false);
         mc.interactionManager.interactBlock(mc.player, world, hand, hitResult);
+    }
+    private static void breakBlock(BlockPos pos){
+        mc.interactionManager.attackBlock(pos, Direction.DOWN);
     }
     public static void switchOnOff(){
         enabled = !enabled;
