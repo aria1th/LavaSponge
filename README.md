@@ -3,5 +3,6 @@ Fluid removing with slime blocks.
 
 # HOW TO USE
 right click Wet Sponge Block to toggle on/off.
-oman you can't place wet sponge while using this. good luck.
-Put this in mods folder, it only works for fabric 1.17.1.
+right click slime block with empty hand to toggle slime removal on/off.
+Put this mod in mods folder.
+it only works for fabric 1.17.X
