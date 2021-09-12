@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "lavasponge",
+  "version": "1.0.0",
+
+  "name": "Lava Sponge",
+  "description": "places slimeblock at nearby fluid sources",
+  "authors": [
+    "AngelBottomless"
+  ],
+  "contact": {
+    "homepage": "https://github.com/aria1th/LavaSponge/",
+    "sources": "https://github.com/aria1th/LavaSponge/"
+  },
+
+  "license": "",
+  "icon": "assets/lavasponge/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    ]
+  },
+  "mixins": [
+    "lava-sponge.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
