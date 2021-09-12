@@ -1,6 +1,7 @@
 package aria1th.main.lavasponge.mixins;
 
 import net.minecraft.block.WetSpongeBlock;
+import net.minecraft.block.SlimeBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -33,6 +34,9 @@ public class MixinMinecraftClient {
     private void switchOnOff(CallbackInfo ci){
         if (this.crosshairTarget.getType() == HitResult.Type.BLOCK && world.getBlockState(((BlockHitResult)this.crosshairTarget).getBlockPos()).getBlock() instanceof WetSpongeBlock) {
             LavaSpongeMain.switchOnOff();
+        }
+        if (this.crosshairTarget.getType() == HitResult.Type.BLOCK && world.getBlockState(((BlockHitResult)this.crosshairTarget).getBlockPos()).getBlock() instanceof SlimeBlock && player.getMainHandStack().isEmpty()) {
+            LavaSpongeMain.switchOnOffSlime();
         }
     }
 }
