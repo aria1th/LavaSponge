@@ -31,8 +31,10 @@ public class LavaSpongeMain {
     public static void tick() {
         playerBlockPos = mc.player.getBlockPos();
         HashSet<Long> hashSet = getNearbyFluidPos();
-        if (!hashSet.isEmpty()) { playerInventorySwitch(useItem);}
-        hashSet.stream().forEach(a -> placeBlock(BlockPos.fromLong(a)));
+        if (!hashSet.isEmpty()) {
+            playerInventorySwitch(useItem);
+            hashSet.stream().forEach(a -> placeBlock(BlockPos.fromLong(a)));
+        }
     }
     public static HashSet<Long> getNearbyFluidPos () {
         return BlockPos.streamOutwards(playerBlockPos, reachDistance, reachDistance, reachDistance).
