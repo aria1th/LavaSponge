@@ -28,6 +28,7 @@ public class LavaSpongeMain {
     private static final ItemConvertible useItem = new Blocks().SLIME_BLOCK.asItem();
     private static BlockPos playerBlockPos;
     private static boolean enabled = false;
+    private static boolean enabledSlime = false;
     private static HashSet<Long> storageLocal = new HashSet<Long>();
     public static void tick() {
         playerBlockPos = mc.player.getBlockPos();
@@ -36,7 +37,7 @@ public class LavaSpongeMain {
             if (playerInventorySwitch(useItem)) {
             hashSet.stream().forEach(a -> placeBlock(BlockPos.fromLong(a)));}
         }
-        getNearbySlimePos().stream().forEach(a -> breakBlock(BlockPos.fromLong(a)));
+        if (enabledSlime) {getNearbySlimePos().stream().forEach(a -> breakBlock(BlockPos.fromLong(a)));}
     }
     public static HashSet<Long> getNearbyFluidPos () {
         return BlockPos.streamOutwards(playerBlockPos, reachDistance, reachDistance, reachDistance).
@@ -87,6 +88,9 @@ public class LavaSpongeMain {
         enabled = !enabled;
         mc = MinecraftClient.getInstance();
         world = mc.world;
+    }
+    public static void switchOnOffSlime(){
+        enabledSlime = !enabledSlime;
     }
     public static boolean isEnabled() {
         return enabled;
