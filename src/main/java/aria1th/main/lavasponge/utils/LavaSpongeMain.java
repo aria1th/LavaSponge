@@ -28,6 +28,7 @@ public class LavaSpongeMain {
     private static final ItemConvertible useItem = new Blocks().SLIME_BLOCK.asItem();
     private static BlockPos playerBlockPos;
     private static boolean enabled = false;
+    private static HashSet<Long> storageLocal = new HashSet<Long>();
     public static void tick() {
         playerBlockPos = mc.player.getBlockPos();
         HashSet<Long> hashSet = getNearbyFluidPos();
@@ -48,6 +49,7 @@ public class LavaSpongeMain {
         return BlockPos.streamOutwards(playerBlockPos, reachDistance, reachDistance, reachDistance).
                 filter(position -> playerBlockPos.getSquaredDistance(position)< reachDistance * reachDistance).
                 filter(position -> isSlimeBlock(position)).limit(maxInteraction).
+                filter(position -> storageLocal.contains(position.asLong())).
                 map(position -> position.asLong()).
                 collect(Collectors.toCollection(HashSet::new));
     }
@@ -72,6 +74,7 @@ public class LavaSpongeMain {
         return false;
     }
     private static void placeBlock(BlockPos pos){
+        storageLocal.add(pos.asLong());
         Vec3d hitVec = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
         Hand hand = Hand.MAIN_HAND;
         BlockHitResult hitResult = new BlockHitResult(hitVec, Direction.DOWN, pos, false);
