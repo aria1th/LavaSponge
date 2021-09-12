@@ -24,7 +24,7 @@ public class LavaSpongeMain {
     private static MinecraftClient mc;
     private static ClientWorld world;
     private static final int reachDistance = 6;
-    private static final int maxInteraction = 64;
+    private static final int maxInteraction = 12;
     private static final ItemConvertible useItem = new Blocks().SLIME_BLOCK.asItem();
     private static BlockPos playerBlockPos;
     private static boolean enabled = false;
