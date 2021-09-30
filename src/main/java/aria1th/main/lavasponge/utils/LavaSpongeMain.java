@@ -12,6 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.text.Text;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
@@ -88,11 +89,11 @@ public class LavaSpongeMain {
         enabled = !enabled;
         mc = MinecraftClient.getInstance();
         world = mc.world;
-        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage("Set Working Status to %s".format(enabledSlime));
+        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Set Working Status to %s".format(String.valueOf(enabled))));
     }
     public static void switchOnOffSlime(){
         enabledSlime = !enabledSlime;
-        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage("Set Slime block breaking after placing to %s".format(enabledSlime));
+        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Set Slime block breaking after placing to %s".format(String.valueOf(enabledSlime))));
     }
     public static boolean isEnabled() {
         return enabled;
