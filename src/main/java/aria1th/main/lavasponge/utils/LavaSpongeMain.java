@@ -89,11 +89,11 @@ public class LavaSpongeMain {
         enabled = !enabled;
         mc = MinecraftClient.getInstance();
         world = mc.world;
-        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Set Working Status to %s".format(String.valueOf(enabled))));
+        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Set Working Status to "+"%s".format(enabled? "ON" : "OFF")));
     }
     public static void switchOnOffSlime(){
         enabledSlime = !enabledSlime;
-        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Set Slime block breaking after placing to %s".format(String.valueOf(enabledSlime))));
+        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Set Slime block breaking after placing to "+"%s".format(enabledSlime? "ON" : "OFF")));
     }
     public static boolean isEnabled() {
         return enabled;
