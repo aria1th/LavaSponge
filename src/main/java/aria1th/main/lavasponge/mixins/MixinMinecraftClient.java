@@ -6,6 +6,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Items;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -32,10 +33,10 @@ public class MixinMinecraftClient {
     public HitResult crosshairTarget;
     @Inject(method = "doItemUse", at = @At(value = "HEAD"))
     private void switchOnOff(CallbackInfo ci){
-        if (this.crosshairTarget.getType() == HitResult.Type.BLOCK && world.getBlockState(((BlockHitResult)this.crosshairTarget).getBlockPos()).getBlock() instanceof WetSpongeBlock) {
+        if (this.crosshairTarget.getType() == HitResult.Type.MISS &&  player.getMainHandStack().isOf(Items.SPONGE) ) {
             LavaSpongeMain.switchOnOff();
         }
-        if (this.crosshairTarget.getType() == HitResult.Type.BLOCK && world.getBlockState(((BlockHitResult)this.crosshairTarget).getBlockPos()).getBlock() instanceof SlimeBlock && player.getMainHandStack().isEmpty()) {
+        if (this.crosshairTarget.getType() == HitResult.Type.MISS &&  player.getMainHandStack().isOf(Items.SLIME_BLOCK)) {
             LavaSpongeMain.switchOnOffSlime();
         }
     }
