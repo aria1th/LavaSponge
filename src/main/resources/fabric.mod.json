@@ -19,11 +19,17 @@
   "environment": "*",
   "entrypoints": {
     "main": [
+      "aria1th.main.lavasponge.LavaSpongeMod"
+    ],
+    "modmenu": [
+      "aria1th.main.lavasponge.compat.modmenu.ModMenuImpl"
     ]
   },
   "mixins": [
     "lava-sponge.json"
-  ],
+  ],  "custom":{
+    "modmenu:clientsideOnly": true
+  },
 
   "depends": {
     "fabricloader": ">=0.11.3",

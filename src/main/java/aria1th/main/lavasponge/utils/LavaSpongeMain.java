@@ -1,23 +1,22 @@
 package aria1th.main.lavasponge.utils;
 
+import aria1th.main.lavasponge.config.Configs;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.text.Text;
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
-import net.minecraft.world.World;
+import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
@@ -38,7 +37,7 @@ public class LavaSpongeMain {
             if (playerInventorySwitch(useItem)) {
             hashSet.stream().forEach(a -> placeBlock(BlockPos.fromLong(a)));}
         }
-        if (enabledSlime) {getNearbySlimePos().stream().forEach(a -> breakBlock(BlockPos.fromLong(a)));}
+        if (Configs.getSlimeBlockPlacingEnabled()) {getNearbySlimePos().stream().forEach(a -> breakBlock(BlockPos.fromLong(a)));}
     }
     public static HashSet<Long> getNearbyFluidPos () {
         return BlockPos.streamOutwards(playerBlockPos, reachDistance, reachDistance, reachDistance).
@@ -97,6 +96,12 @@ public class LavaSpongeMain {
     }
     public static boolean isEnabled() {
         return enabled;
+    }
+    public static void refreshInstance(){
+        mc = MinecraftClient.getInstance();
+        world = mc.world;
+        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Set Working Status to "+"%s".format(Configs.getlavaSpongeIsOn()? "ON" : "OFF")));
+        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Set Slime block breaking after placing to "+"%s".format(Configs.getSlimeBlockPlacingEnabled()? "ON" : "OFF")));
     }
     public static boolean playerInventorySwitch(ItemConvertible itemName){
         PlayerInventory playerInventory = mc.player.getInventory();

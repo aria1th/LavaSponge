@@ -1,24 +1,15 @@
 package aria1th.main.lavasponge.mixins;
 
-import net.minecraft.block.WetSpongeBlock;
-import net.minecraft.block.SlimeBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Items;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import aria1th.main.lavasponge.utils.LavaSpongeMain;
 
 @Mixin(MinecraftClient.class)
 public class MixinMinecraftClient {
@@ -33,11 +24,12 @@ public class MixinMinecraftClient {
     public HitResult crosshairTarget;
     @Inject(method = "doItemUse", at = @At(value = "HEAD"))
     private void switchOnOff(CallbackInfo ci){
-        if (this.crosshairTarget.getType() == HitResult.Type.MISS &&  player.getMainHandStack().isOf(Items.SPONGE) ) {
-            LavaSpongeMain.switchOnOff();
-        }
-        if (this.crosshairTarget.getType() == HitResult.Type.MISS &&  player.getMainHandStack().isOf(Items.SLIME_BLOCK)) {
-            LavaSpongeMain.switchOnOffSlime();
-        }
+        return;
+        //if (this.crosshairTarget.getType() == HitResult.Type.MISS &&  player.getMainHandStack().isOf(Items.SPONGE) ) {
+            //LavaSpongeMain.switchOnOff();
+        //}
+        //if (this.crosshairTarget.getType() == HitResult.Type.MISS &&  player.getMainHandStack().isOf(Items.SLIME_BLOCK)) {
+            //LavaSpongeMain.switchOnOffSlime();
+        //}
     }
 }
